@@ -1,13 +1,11 @@
 
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Stack } from '@mui/material';
-import { logo } from '../utils/constants'
-import SearchBar from "./SearchBar"
 import { categories } from '../utils/constants'
 
+const Sidebar = ({selectedCategory, setSelectedCategory}) => {
 
-const Sidebar = ({selectedCategory, setSelectedCategory}) => ( 
+    return ( 
     <Stack 
         direction="row"
         sx = {{
@@ -29,9 +27,8 @@ const Sidebar = ({selectedCategory, setSelectedCategory}) => (
                 <span style={{ opacity: category.name===selectedCategory ? '1' : '0.8'}}>{category.name}</span>
             </button>
         ))}
-
     </Stack>
-)
+)}
   
 
 
