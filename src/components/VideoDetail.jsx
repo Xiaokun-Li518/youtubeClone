@@ -27,9 +27,22 @@ const VideoDetail = () => {
 
   if (!videos) return 'Loading...'
 
-  const { snippet: { title, channelId, channelTitle}, statistics: {
+  const { snippet: { title, channelId, channelTitle, publishedAt}, statistics: {
     viewCount, likeCount
   } } = videoDetail;
+
+
+  
+  const time = new Date('2022-10-18T21:40:33Z');
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const month = monthNames[time.getMonth()]; // "October"
+  const day = time.getDay();
+
+
+
 
   return (
     <Box minHeight = "95vh">
@@ -38,13 +51,19 @@ const VideoDetail = () => {
         <Box flex = {1}>
           <Box sx={{ width:'100%', position:'sticky', top:'86px'}}>
             <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} className = "react-player" controls/>
-            <Typography variant="h5" fontWeight = "bold" p={2}>
-              {title}
-            </Typography>
+
+            <Stack direction="row" justifyContent="space-between" alignItems = "center">
+              <Typography variant="h5" fontWeight = "bold" p={2}>
+                {title} 
+              </Typography>
+              <Typography variant="subtitle1" p={2}>
+                {month} {day}, {time.getFullYear()}
+              </Typography>
+            </Stack>
 
             <Stack direction="row" justifyContent="space-between" sx={{}} py={1} px={2}>
               <Link to={`/channel/${channelId}`}>
-                <Typography color = "black" variant={{sm:'subtitle1', md:'h6'}}>
+                <Typography color = "black" variant={{sm:'subtitle1', md:'h4'}}>
                   {channelTitle}
                   <CheckCircle sx={{ fontSize:'12px', color:'gray', ml:'5px'}}/>
                 </Typography>
