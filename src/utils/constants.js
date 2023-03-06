@@ -12,7 +12,7 @@ import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 
-export const logo = 'https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg';
+export const logo = 'https://img.freepik.com/premium-vector/play-logo_579179-916.jpg?w=2000';
 
 export const categories = [
   { name: 'New', icon: <HomeIcon />, },
