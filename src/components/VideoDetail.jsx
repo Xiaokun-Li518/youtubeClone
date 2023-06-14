@@ -7,25 +7,23 @@ import { CheckCircle } from '@mui/icons-material';
 import { Videos } from './';
 
 import { fetchFromAPI } from '../utils/fetchFromAPI';
+import { LoadingPage } from './Loading';
 
 const VideoDetail = () => {
 
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
-  console.log (videoDetail);
-  console.log (videos);
   const {id} = useParams();
 
   useEffect (() => {
     fetchFromAPI(`videos?part=snippet, statistics&id=${id}`).then((data) => setVideoDetail(data.items[0]));
-
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
     .then((data) => setVideos(data.items))
   },[id]);
 
-  if (!videoDetail?.snippet) return 'Loading...'
+  if (!videoDetail?.snippet) return <LoadingPage />
 
-  if (!videos) return 'Loading...'
+  if (!videos) return <LoadingPage />
 
   const { snippet: { title, channelId, channelTitle, publishedAt}, statistics: {
     viewCount, likeCount
