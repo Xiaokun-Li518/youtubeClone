@@ -6,6 +6,7 @@ import { Sidebar, Videos } from './'
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 
 const Feed = () => {
+  console.log ("Hit Hit Hit!!!")
   const [selectedCategory, setSelectedCategory] = useState('New');
 
   const [videos, setVideos] = useState([]);
