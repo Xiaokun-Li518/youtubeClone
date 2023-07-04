@@ -31,7 +31,7 @@ const VideoDetail = () => {
 
 
   
-  const time = new Date('2022-10-18T21:40:33Z');
+  const time = new Date(publishedAt);
 
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

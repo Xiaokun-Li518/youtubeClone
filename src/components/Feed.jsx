@@ -6,16 +6,28 @@ import { Sidebar, Videos } from './'
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 
 const Feed = () => {
-  console.log ("Hit Hit Hit!!!")
   const [selectedCategory, setSelectedCategory] = useState('New');
 
   const [videos, setVideos] = useState([]);
+  console.log (videos);
 
-  useEffect(() => {
-      fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
-      .then((data) => setVideos(data.items))
-      }, [selectedCategory]);
+useEffect(() => {
+  fetchFromAPI(`search?part=snippet&q=${selectedCategory}&type=video`)
+    .then((data) => {
+      const videoIds = data.items.map((item) => item.id.videoId).join(',');
 
+      fetchFromAPI(`videos?part=statistics&id=${videoIds}`)
+        .then((statisticsData) => {
+          const videosWithStats = data.items.map((video, index) => ({
+            ...video,
+            statistics: statisticsData.items[index].statistics,
+          }));
+
+          setVideos(videosWithStats);
+        });
+    });
+}, [selectedCategory]);
+  
 
   return (
     <Stack sx={{ flexDirection: { sx: 'column', md: 'row'}}}>
