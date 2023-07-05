@@ -37,7 +37,16 @@ const VideoCard = ({video: {id: {videoId}, snippet, statistics}}) => {
 
 
 	return (
-		<Card sx={{width: {xs:'320px', sm:'320px', md: '358px' }, boxShadow: 'none' }}>
+		<Card sx={{
+			width: {xs:'320px', sm:'320px', md: '358px' },
+			boxShadow: 'none',
+			borderRadius: '20px',
+			transition: 'all 0.3s ease', // Added line for smooth transition
+			'&:hover': {  // Added lines for hover effect
+				transform: 'scale(1.03)',
+				boxShadow: '5px 5px 15px rgba(0,0,0,0.3)',
+			},
+		}} variant="outlined">
 			<Link to={videoId? `/video/${videoId}`: demoVideoUrl}>
 				<CardMedia image = {snippet.thumbnails?.high?.url} 
 					alt={snippet?.title} 

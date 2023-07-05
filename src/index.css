@@ -35,8 +35,10 @@ a {
 }
 
 .react-player {
-  height: 77vh !important;
+  height: 60vh !important;
   width: 100% !important;
+  border-radius: 20px;
+  overflow: hidden;  
 }
 
 .search-bar{
@@ -61,6 +63,7 @@ a {
   border-radius: 20px;
   transition: all 0.3s ease;
 }
+
 
 @media screen and (max-width: 900px) {
   .category-btn{
