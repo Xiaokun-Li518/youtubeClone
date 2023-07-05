@@ -13,12 +13,26 @@ const ChannelDetail = ({catagory}) => {
 
     const {id} = useParams();
 
-    useEffect (() => {
-      fetchFromAPI (`channels?part=snippet&id=${id}`)
-      .then((data) => setChannelDetail(data.items[0]));
-      fetchFromAPI (`search?channelId=${id}&part=snippet&order=date`)
-      .then((data) => setVideos(data.items));
-    }, [id]);
+    useEffect(() => {
+        fetchFromAPI(`channels?part=snippet,statistics&id=${id}`)
+          .then((data) => setChannelDetail(data.items[0]));
+      
+        fetchFromAPI(`search?channelId=${id}&part=snippet&order=date&type=video`)
+          .then((data) => {
+            const videoIds = data.items.map((item) => item.id.videoId).join(',');
+      
+            fetchFromAPI(`videos?part=statistics&id=${videoIds}`)
+              .then((statisticsData) => {
+                const videosWithStats = data.items.map((video, index) => ({
+                  ...video,
+                  statistics: statisticsData.items[index].statistics,
+                }));
+      
+                setVideos(videosWithStats);
+              });
+          });
+      }, [id]);
+      
 
     return (
         <Box minHeight = "95vh">

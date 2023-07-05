@@ -31,12 +31,6 @@ const VideoCard = ({video: {id: {videoId}, snippet, statistics}}) => {
 	const duration = moment.duration(diff);
 	const formatted = duration.humanize(); // e.g. "a day", "an hour"
 
-	// const [videoDetail, setVideoDetail] = useState(null);
-
-	// useEffect (() => {
-	// 	fetchFromAPI(`videos?part=snippet, statistics&id=${videoId}`).then((data) => setVideoDetail(data.items[0]));
-	//   },[videoId]);
-	// console.log (videoDetail);
 	const {viewCount} = statistics;
 	const formattedViewCount = formatViewCount(viewCount);
 

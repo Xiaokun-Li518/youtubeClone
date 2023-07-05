@@ -15,11 +15,26 @@ const VideoDetail = () => {
   const [videos, setVideos] = useState(null);
   const {id} = useParams();
 
-  useEffect (() => {
-    fetchFromAPI(`videos?part=snippet, statistics&id=${id}`).then((data) => setVideoDetail(data.items[0]));
+  useEffect(() => {
+    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
+      .then((data) => setVideoDetail(data.items[0]));
+  
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
-    .then((data) => setVideos(data.items))
-  },[id]);
+      .then((data) => {
+        const videoIds = data.items.map((item) => item.id.videoId).join(',');
+  
+        fetchFromAPI(`videos?part=statistics&id=${videoIds}`)
+          .then((statisticsData) => {
+            const videosWithStats = data.items.map((video, index) => ({
+              ...video,
+              statistics: statisticsData.items[index].statistics,
+            }));
+  
+            setVideos(videosWithStats);
+          });
+      });
+  }, [id]);
+  
 
   if (!videoDetail?.snippet) return <LoadingPage />
 

@@ -12,9 +12,22 @@ const SearchFeed = () => {
   const {searchTerm} = useParams();
 
   useEffect(() => {
-        fetchFromAPI(`search?part=snippet&q=${searchTerm}`)
-          .then((data) => setVideos(data.items))
-    }, [searchTerm]);
+    fetchFromAPI(`search?part=snippet&q=${searchTerm}&type=video`)
+      .then((data) => {
+        const videoIds = data.items.map((item) => item.id.videoId).join(',');
+  
+        fetchFromAPI(`videos?part=statistics&id=${videoIds}`)
+          .then((statisticsData) => {
+            const videosWithStats = data.items.map((video, index) => ({
+              ...video,
+              statistics: statisticsData.items[index].statistics,
+            }));
+  
+            setVideos(videosWithStats);
+          });
+      });
+  }, [searchTerm]);
+  
 
   return (
         <Box sx={{
