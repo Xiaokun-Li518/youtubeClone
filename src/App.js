@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Navbar, Feed, VideoDetail, ChannelDetail, SearchFeed } from './components'
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="/search/:searchTerm" element={<SearchFeed />}/>
             </Routes>
         </Box>
+        <Analytics />
     </BrowserRouter>
 )};
 
